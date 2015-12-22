@@ -1,5 +1,8 @@
 package servlets;
 
+import accounts.AccountService;
+import accounts.UserProfile;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,12 +14,25 @@ import java.io.IOException;
  */
 public class SignUpServlet extends HttpServlet {
 
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+    private final AccountService accountService;
+
+    public SignUpServlet(AccountService accountService){
+        this.accountService = accountService;
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
+        String login = request.getParameter("login");
+        String pass  = request.getParameter("password");
 
-
-
+        if (login == null || pass == null){
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+        else{
+            accountService.addNewUser(new UserProfile(login, pass));
+            response.setStatus(HttpServletResponse.SC_OK);
+        }
     }
 
 }

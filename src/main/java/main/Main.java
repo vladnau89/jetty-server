@@ -1,5 +1,7 @@
 package main;
 
+import accounts.AccountService;
+import accounts.UserProfile;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -13,9 +15,13 @@ import servlets.SignUpServlet;
 public class Main {
 
     public static void main(String[] atgs) throws Exception{
+
+        AccountService accountService = new AccountService();
+        accountService.addNewUser(new UserProfile("admin"));
+
         MirrorRequestServlet mirrorRequestServlet = new MirrorRequestServlet();
-        SignUpServlet signUpServlet = new SignUpServlet();
-        SignInServlet signInServlet = new SignInServlet();
+        SignUpServlet signUpServlet = new SignUpServlet(accountService);
+        SignInServlet signInServlet = new SignInServlet(accountService);
 
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.addServlet(new ServletHolder(mirrorRequestServlet), "/mirror");
