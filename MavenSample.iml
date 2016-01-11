@@ -20,5 +20,6 @@
     <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-xml:9.3.0.M0" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-servlet:9.3.0.M0" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-security:9.3.0.M0" level="project" />
+    <orderEntry type="library" name="Maven: com.h2database:h2:1.4.187" level="project" />
   </component>
 </module>
