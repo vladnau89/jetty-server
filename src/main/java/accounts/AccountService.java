@@ -1,39 +1,46 @@
 package accounts;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by win on 22.12.2015.
  */
-public class AccountService {
+public class AccountService implements IAccountService {
 
-    private final Map<String, UserProfile> loginToProfile;
-    private final Map<String, UserProfile> sessionIdToProfile;
+    private long currentId;
+    private final List<UserProfile> profiles;
 
     public AccountService() {
-        loginToProfile = new HashMap<>();
-        sessionIdToProfile = new HashMap<>();
+        profiles = new ArrayList<>();
+        currentId = 0;
     }
 
-    public void addNewUser(UserProfile userProfile) {
-        loginToProfile.put(userProfile.getLogin(), userProfile);
+    public long addUser(String login, String password)
+    {
+        profiles.add(new UserProfile(++currentId, login, password));
+        return currentId;
+    }
+
+    public  UserProfile getUser(long id)
+    {
+        return profiles
+                .stream()
+                .filter(userProfile -> userProfile.getId() == id)
+                .findFirst()
+                .get();
+    }
+
+    public void printConnectInfo()
+    {
+        System.out.println("Connected!");
     }
 
     public UserProfile getUserByLogin(String login) {
-        return loginToProfile.get(login);
+        return profiles
+                .stream()
+                .filter(userProfile -> userProfile.getLogin() == login)
+                .findFirst()
+                .get();
     }
-
-    public UserProfile getUserBySessionId(String sessionId) {
-        return sessionIdToProfile.get(sessionId);
-    }
-
-    public void addSession(String sessionId, UserProfile userProfile) {
-        sessionIdToProfile.put(sessionId, userProfile);
-    }
-
-    public void deleteSession(String sessionId) {
-        sessionIdToProfile.remove(sessionId);
-    }
-
 }

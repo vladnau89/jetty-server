@@ -17,7 +17,6 @@ public class Main {
     public static void main(String[] atgs) throws Exception{
 
         AccountService accountService = new AccountService();
-        accountService.addNewUser(new UserProfile("admin"));
 
         MirrorRequestServlet mirrorRequestServlet = new MirrorRequestServlet();
         SignUpServlet signUpServlet = new SignUpServlet(accountService);

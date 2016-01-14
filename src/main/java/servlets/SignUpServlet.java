@@ -30,7 +30,7 @@ public class SignUpServlet extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
         else{
-            accountService.addNewUser(new UserProfile(login, pass));
+            accountService.addUser(login, pass);
             response.setStatus(HttpServletResponse.SC_OK);
         }
     }
