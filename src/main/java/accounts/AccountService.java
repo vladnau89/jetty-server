@@ -36,10 +36,10 @@ public class AccountService implements IAccountService {
         System.out.println("Connected!");
     }
 
-    public UserProfile getUserByLogin(String login) {
+    public UserProfile getUser(String login, String password) {
         return profiles
                 .stream()
-                .filter(userProfile -> userProfile.getLogin() == login)
+                .filter(userProfile -> userProfile.getLogin().equals(login) && userProfile.getPass().equals(password))
                 .findFirst()
                 .get();
     }

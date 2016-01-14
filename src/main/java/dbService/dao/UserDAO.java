@@ -22,13 +22,18 @@ public class UserDAO {
         });
     }
 
-    public long getUserId(String login, String password) throws SQLException {
+    public UserProfile get(String login, String password) throws SQLException {
 
-        String query = String.format("select * from users where login='%s' and password ='%s'", login, password);
+        String query = String.format("select * from users where login='%s' and password = '%s'", login, password);
         return executor.execQuery(query, result -> {
             result.next();
-            return result.getLong(1);
+            return new UserProfile(result.getLong(1), result.getString(2), result.getString(3));
         });
+    }
+
+    public long getUserId(String login, String password) throws SQLException {
+        UserProfile userProfile = get(login, password);
+        return userProfile.getId();
     }
 
     public void insertUser(String login, String password) throws SQLException {

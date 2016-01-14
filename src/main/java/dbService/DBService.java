@@ -69,6 +69,13 @@ public class DBService implements IAccountService {
         }
     }
 
+    public  UserProfile getUser(String login, String password) throws DBException {
+        try {
+            return (new UserDAO(connection).get(login, password));
+        } catch (SQLException e) {
+            throw new DBException(e);
+        }
+    }
 
     public static Connection getH2Connection() {
         try {

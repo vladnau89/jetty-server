@@ -33,8 +33,8 @@ public class SignInServlet extends HttpServlet {
         }
 
         try{
-            UserProfile profile = accountService.getUserByLogin(login);
-            if (profile == null || !profile.getPass().equals(pass)){
+            UserProfile profile = accountService.getUser(login, pass);
+            if (profile == null){
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 response.getWriter().print("Unauthorized");
             }
@@ -45,7 +45,8 @@ public class SignInServlet extends HttpServlet {
         }
         catch (Exception e){
             System.out.println(e.getLocalizedMessage());
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().print("Unauthorized");
         }
     }
 }
