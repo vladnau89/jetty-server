@@ -3,7 +3,6 @@ package dbService.dao;
 import java.sql.Connection;
 import java.sql.SQLException;
 import dbService.executor.Executor;
-import dbService.executor.ResultHandler;
 import accounts.UserProfile;
 
 /**

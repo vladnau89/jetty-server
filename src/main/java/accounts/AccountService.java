@@ -43,4 +43,8 @@ public class AccountService implements IAccountService {
                 .findFirst()
                 .get();
     }
+
+    public void cleanUp() throws Exception {
+
+    }
 }

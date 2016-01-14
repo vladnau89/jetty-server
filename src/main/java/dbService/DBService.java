@@ -1,10 +1,10 @@
 package dbService;
 
+import accounts.IAccountService;
 import accounts.UserProfile;
 import org.h2.jdbcx.JdbcDataSource;
 
 import java.sql.Connection;
-import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import dbService.dao.UserDAO;
@@ -12,7 +12,7 @@ import dbService.dao.UserDAO;
 /**
  * Created by win on 14.01.2016.
  */
-public class DBService {
+public class DBService implements IAccountService {
     private final Connection connection;
 
     public DBService() {

@@ -1,8 +1,6 @@
 package servlets;
 
-import accounts.AccountService;
-import accounts.UserProfile;
-
+import accounts.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,9 +12,9 @@ import java.io.IOException;
  */
 public class SignInServlet extends HttpServlet {
 
-    private final AccountService accountService;
+    private final IAccountService accountService;
 
-    public SignInServlet(AccountService accountService){
+    public SignInServlet(IAccountService accountService){
         this.accountService = accountService;
     }
 
@@ -34,16 +32,20 @@ public class SignInServlet extends HttpServlet {
             return;
         }
 
-        UserProfile profile = accountService.getUserByLogin(login);
-        if (profile == null || !profile.getPass().equals(pass)){
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.getWriter().print("Unauthorized");
+        try{
+            UserProfile profile = accountService.getUserByLogin(login);
+            if (profile == null || !profile.getPass().equals(pass)){
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.getWriter().print("Unauthorized");
+            }
+            else{
+                response.setStatus(HttpServletResponse.SC_OK);
+                response.getWriter().print("Authorized");
+            }
         }
-        else{
-            response.setStatus(HttpServletResponse.SC_OK);
-            response.getWriter().print("Authorized");
+        catch (Exception e){
+            System.out.println(e.getLocalizedMessage());
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
-
     }
-
 }

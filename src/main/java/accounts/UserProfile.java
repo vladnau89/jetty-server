@@ -17,11 +17,9 @@ public class UserProfile {
     public String getLogin() {
         return login;
     }
-
     public String getPass() {
         return pass;
     }
-
     public long getId() { return id;}
 }
 

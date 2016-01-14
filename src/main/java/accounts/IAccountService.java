@@ -5,7 +5,9 @@ package accounts;
  */
 public interface IAccountService {
 
-    long addUser(String login, String password);
-    UserProfile getUser(long id);
+    long addUser(String login, String password) throws Exception;
+    UserProfile getUser(long id )throws Exception;
     void printConnectInfo();
+    void cleanUp() throws Exception;
+    UserProfile getUserByLogin(String login) throws Exception;
 }

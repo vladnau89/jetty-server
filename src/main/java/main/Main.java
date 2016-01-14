@@ -1,7 +1,7 @@
 package main;
 
 import accounts.AccountService;
-import accounts.UserProfile;
+import accounts.IAccountService;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -16,7 +16,7 @@ public class Main {
 
     public static void main(String[] atgs) throws Exception{
 
-        AccountService accountService = new AccountService();
+        IAccountService accountService = new AccountService();
 
         MirrorRequestServlet mirrorRequestServlet = new MirrorRequestServlet();
         SignUpServlet signUpServlet = new SignUpServlet(accountService);

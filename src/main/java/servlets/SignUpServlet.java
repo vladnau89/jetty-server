@@ -1,7 +1,6 @@
 package servlets;
 
-import accounts.AccountService;
-import accounts.UserProfile;
+import accounts.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,9 +13,9 @@ import java.io.IOException;
  */
 public class SignUpServlet extends HttpServlet {
 
-    private final AccountService accountService;
+    private final IAccountService accountService;
 
-    public SignUpServlet(AccountService accountService){
+    public SignUpServlet(IAccountService accountService){
         this.accountService = accountService;
     }
 
@@ -30,8 +29,15 @@ public class SignUpServlet extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
         else{
-            accountService.addUser(login, pass);
-            response.setStatus(HttpServletResponse.SC_OK);
+
+            try {
+                accountService.addUser(login, pass);
+                response.setStatus(HttpServletResponse.SC_OK);
+            }
+            catch (Exception e){
+                System.out.println("cann`t add user! " + e.getLocalizedMessage());
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            }
         }
     }
 
